@@ -1,10 +1,10 @@
 # ERP City Client (Laravel)
 
-Reusable ERP integration used by multiple Laravel apps integrating with https://github.com/AntonioPrimera/erp-city. This package centralizes the ERP API client, auth session helper, ERP controllers/routes, enums, and order mail templates.
+Reusable ERP client used by multiple Laravel apps integrating with https://github.com/AntonioPrimera/erp-city. This package centralizes the ERP API client, auth session helper, ERP controllers/routes, enums, and order mail templates.
 
 ## Requirements
-- PHP ^8.1
-- Laravel ^10, ^11, or ^12
+- PHP ^8.2
+- Laravel ^12
 
 ## Installation (local path)
 1) Add the path repository and require the package in your app's `composer.json`:
@@ -27,7 +27,7 @@ Reusable ERP integration used by multiple Laravel apps integrating with https://
 2) Install the package:
 
 ```bash
-composer update erp-city/erp-city-client
+composer install erp-city/erp-city-client
 ```
 
 3) Publish the config:
@@ -128,4 +128,4 @@ use ERPClient\Enums\PaymentType;
 
 ## Notes
 - The package uses the same config key (`erp`) across all apps.
-- Order notification emails are optional and fully controlled by config/env.
+- Order notification emails and card payments via Stripe are optional and fully controlled by config/env.
