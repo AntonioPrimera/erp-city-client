@@ -6,20 +6,19 @@ Reusable ERP client used by multiple Laravel apps integrating with https://githu
 - PHP ^8.2
 - Laravel ^12
 
-## Installation (local path)
-1) Add the path repository and require the package in your app's `composer.json`:
+## Installation (VCS)
+1) Add the VCS repository and require the package in your app's `composer.json`:
 
 ```json
 {
   "repositories": [
     {
-    "type": "path",
-    "url": "../erp-city-client",
-      "options": { "symlink": true }
+      "type": "vcs",
+      "url": "https://github.com/AntonioPrimera/erp-city-client"
     }
   ],
   "require": {
-    "erp-city/erp-city-client": "*"
+    "erp-city/erp-city-client": "^1.0"
   }
 }
 ```
