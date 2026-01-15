@@ -24,7 +24,7 @@ return [
     'endpoints' => [
         'products' => [
             'all' => '/products',
-            'get' => '/products/{id}',
+            'get' => '/products/%s',
             'mostSold' => '/products/most-sold',
         ],
         'coupons' => [
