@@ -110,7 +110,7 @@ class CartController extends Controller
             'name'        => ['required', 'string', 'max:255'],
             'phone'       => ['required', 'string', 'max:20'],
             'email'       => ['required', 'string', 'email', 'max:255'],
-            'town'        => ['required', 'string', 'max:255'],
+            'address'     => ['required', 'string', 'max:255'],
             'company'     => ['required', 'string', 'max:255'],
         ]);
 

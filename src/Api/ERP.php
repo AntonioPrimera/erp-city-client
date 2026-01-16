@@ -247,8 +247,8 @@ class ERP
     public static function storeOrder(
         string|null $userToken,
         string $name,
-        string $town,
-        string $company,
+        string $address,
+        ?string $company,
         string $phone,
         string $email,
         array $items, // quantity + price + currency + id of products
@@ -258,7 +258,7 @@ class ERP
     {
         $payload = [
             'name'    => $name,
-            'town'    => $town,
+            'address' => $address,
             'company' => $company,
             'phone'   => $phone,
             'email'   => $email,

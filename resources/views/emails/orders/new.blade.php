@@ -10,7 +10,7 @@
 <p><strong>Societate:</strong> {{ $order->company }}</p>
 <p><strong>Email:</strong> {{ $order->email }}</p>
 <p><strong>Telefon:</strong> {{ $order->phone }}</p>
-<p><strong>Localitate:</strong> {{ $order->town }}</p>
+<p><strong>Adresa:</strong> {{ $order->address }}</p>
 
 <h3>Servicii solicitate:</h3>
 <ul>

@@ -23,8 +23,8 @@ class OrderController extends Controller
     {
         $validated = $request->validate([
             'name'               => ['required', 'string', 'max:255'],
-            'town'               => ['required', 'string', 'max:255'],
-            'company'            => ['required', 'string', 'max:255'],
+            'address'            => ['required', 'string', 'max:255'],
+            'company'            => ['nullable', 'string', 'max:255'],
             'phone'              => ['required', 'string', 'max:20'],
             'email'              => ['required', 'string', 'email', 'max:255'],
             'items'              => ['required', 'array'],
@@ -73,7 +73,7 @@ class OrderController extends Controller
             $pendingOrders[$pendingOrderId] = [
                 'user_token'   => $userToken,
                 'name'         => $validated['name'],
-                'town'         => $validated['town'],
+                'address'      => $validated['address'],
                 'company'      => $validated['company'],
                 'phone'        => $validated['phone'],
                 'email'        => $validated['email'],
@@ -97,7 +97,7 @@ class OrderController extends Controller
         $response = ERP::storeOrder(
             $userToken ?? null,
             $validated['name'],
-            $validated['town'],
+            $validated['address'],
             $validated['company'],
             $validated['phone'],
             $validated['email'],
@@ -143,7 +143,7 @@ class OrderController extends Controller
         $response = ERP::storeOrder(
             $pendingOrder['user_token'] ?? null,
             $pendingOrder['name'],
-            $pendingOrder['town'],
+            $pendingOrder['address'],
             $pendingOrder['company'],
             $pendingOrder['phone'],
             $pendingOrder['email'],
