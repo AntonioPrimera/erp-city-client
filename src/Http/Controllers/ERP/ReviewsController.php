@@ -48,10 +48,10 @@ class ReviewsController extends Controller
         }
 
         if (!$response->successful()) {
-            return response($response->json(), $response->status());
+            return response()->json($response->json(), $response->status());
         }
 
-        return response($response->json());
+        return response()->json($response->json(), $response->status());
     }
 
     protected function unauthenticated(): JsonResponse
