@@ -140,6 +140,36 @@ class ERP
         return null;
     }
 
+    public static function storeReview(string $token, int|string $productId, string $title, string $content, int $rating)
+    {
+        $endpointTemplate = config('erp.endpoints.products.review');
+        $endpointPath = $endpointTemplate ? sprintf($endpointTemplate, $productId) : null;
+        $endpoint = $endpointPath ? self::buildEndpoint($endpointPath) : null;
+
+        if (!$endpoint) {
+            return null;
+        }
+
+        try {
+            $response = self::userHttpClient($token)->post($endpoint, [
+                'title'   => $title,
+                'content' => $content,
+                'rating'  => $rating,
+            ]);
+
+            if ($response->successful()) {
+                return $response->json('data');
+            }
+        } catch (Throwable $e) {
+            Log::error('Failed to post ERP product review', [
+                'product_id' => $productId,
+                'message' => $e->getMessage(),
+            ]);
+        }
+
+        return null;
+    }
+
     //--- Coupons ----------------------------------------------------------------------------------------------------
 
     /**

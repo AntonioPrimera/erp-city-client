@@ -26,6 +26,7 @@ return [
             'all' => '/products',
             'get' => '/products/%s',
             'mostSold' => '/products/most-sold',
+            'review' => '/products/%s/reviews/create',
         ],
         'coupons' => [
             'validate' => '/coupons/validate',

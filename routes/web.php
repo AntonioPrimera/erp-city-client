@@ -1,6 +1,7 @@
 <?php
 
 use ERPClient\Http\Controllers\CartController;
+use ERPClient\Http\Controllers\ERP\ReviewsController;
 use ERPClient\Http\Controllers\PaymentMethodsController;
 use ERPClient\Http\Controllers\ERP\AuthController;
 use ERPClient\Http\Controllers\ERP\FavoritesController;
@@ -38,4 +39,6 @@ Route::middleware('web')->prefix('erp')->name('erp.')->group(function () {
         Route::post('/favorites/{product}/toggle', [FavoritesController::class, 'toggle'])->name('account.favorites.toggle');
         Route::get('/orders', [OrdersController::class, 'index'])->name('account.orders.index');
     });
+
+    Route::post('/products/{product}/reviews', [ReviewsController::class, 'store'])->name('products.reviews.store');
 });
