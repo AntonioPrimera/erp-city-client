@@ -151,15 +151,12 @@ class ERP
         }
 
         try {
-            $response = self::userHttpClient($token)->post($endpoint, [
+            return self::userHttpClient($token)->post($endpoint, [
                 'title'   => $title,
                 'content' => $content,
                 'rating'  => $rating,
             ]);
 
-            if ($response->successful()) {
-                return $response->json('data');
-            }
         } catch (Throwable $e) {
             Log::error('Failed to post ERP product review', [
                 'product_id' => $productId,

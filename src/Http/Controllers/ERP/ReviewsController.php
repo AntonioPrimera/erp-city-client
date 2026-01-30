@@ -4,6 +4,7 @@ namespace ERPClient\Http\Controllers\ERP;
 
 use ERPClient\Api\ERP;
 use ERPClient\Services\ERPAuthService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
 
@@ -46,15 +47,11 @@ class ReviewsController extends Controller
             return $this->unauthenticated();
         }
 
-        if ($response->failed()) {
-            return response()->json([
-                'message' => $response->json('message') ?? 'Nu am putut adăuga recenzia.',
-            ], $response->status());
+        if (!$response->successful()) {
+            return response($response->json(), $response->status());
         }
 
-        return response()->json([
-            'message' => 'Recenzia ta a fost trimisă cu succes și așteaptă aprobare de la un administrator.'
-        ]);
+        return response($response->json());
     }
 
     protected function unauthenticated(): JsonResponse

@@ -1,7 +1,7 @@
 {
     "name": "erp-city/erp-city-client",
     "description": "ERP client integration for Laravel apps",
-    "version": "1.0.4",
+    "version": "1.0.5",
     "type": "library",
     "license": "proprietary",
     "require": {
