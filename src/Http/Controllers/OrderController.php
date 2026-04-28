@@ -102,7 +102,7 @@ class OrderController extends Controller
             $validated['phone'],
             $validated['email'],
             $items,
-            $cardPaymentsEnabled ? $paymentType?->value : null,
+            $paymentType?->value,
             $couponCode,
         );
 
