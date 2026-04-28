@@ -350,6 +350,28 @@ class ERP
         }
     }
 
+    /**
+     * Update the authenticated user's profile details in ERP.
+     */
+    public static function updateProfile(string $token, array $payload): ?Response
+    {
+        $endpoint = self::buildEndpoint(config('erp.endpoints.auth.update'));
+
+        if (! $endpoint) {
+            return null;
+        }
+
+        try {
+            return self::userHttpClient($token)->put($endpoint, $payload);
+        } catch (Throwable $e) {
+            Log::error('Failed to update ERP profile', [
+                'message' => $e->getMessage(),
+            ]);
+
+            return null;
+        }
+    }
+
     //--- Helpers -----------------------------------------------------------------------------------------------------
 
     protected static function httpClient(): PendingRequest

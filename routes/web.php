@@ -32,6 +32,7 @@ Route::middleware('web')->prefix('erp')->name('erp.')->group(function () {
         Route::post('/register', [AuthController::class, 'register'])->name('auth.register');
         Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout');
         Route::get('/me', [AuthController::class, 'me'])->name('auth.me');
+        Route::put('/me', [AuthController::class, 'update'])->name('auth.update');
     });
 
     Route::prefix('account')->group(function () {

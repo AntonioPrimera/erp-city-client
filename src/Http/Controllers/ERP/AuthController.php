@@ -5,6 +5,7 @@ namespace ERPClient\Http\Controllers\ERP;
 use ERPClient\Api\ERP;
 use ERPClient\Http\Requests\ERPLoginRequest;
 use ERPClient\Http\Requests\ERPRegisterRequest;
+use ERPClient\Http\Requests\ERPUpdateProfileRequest;
 use ERPClient\Services\ERPAuthService;
 use Illuminate\Http\Client\Response as HttpResponse;
 use Illuminate\Http\JsonResponse;
@@ -57,8 +58,52 @@ class AuthController extends Controller
             );
         }
 
+        $user = $response->json('data') ?? $response->json();
+
+        if (is_array($user)) {
+            $this->authService->updateUser($user);
+        }
+
         return response()->json([
-            'data' => $response->json('data') ?? $response->json(),
+            'data' => $user,
+        ]);
+    }
+
+    public function update(ERPUpdateProfileRequest $request): JsonResponse
+    {
+        $token = $this->authService->token();
+
+        if (! $token) {
+            return response()->json([
+                'message' => 'Autentifică-te pentru a actualiza profilul.',
+            ], 401);
+        }
+
+        $response = ERP::updateProfile($token, $request->validated());
+
+        if (! $response) {
+            return response()->json([
+                'message' => 'Serviciul ERP nu este disponibil. Incercati din nou mai tarziu.',
+            ], 502);
+        }
+
+        if ($response->failed()) {
+            $body = $response->json();
+
+            return response()->json(
+                $body ?? ['message' => 'Nu am putut actualiza profilul.'],
+                $response->status()
+            );
+        }
+
+        $user = $response->json('data') ?? $response->json();
+
+        if (is_array($user)) {
+            $this->authService->updateUser($user);
+        }
+
+        return response()->json([
+            'data' => $user,
         ]);
     }
 

@@ -37,6 +37,7 @@ return [
             'register' => '/auth/register',
             'logout'   => '/auth/logout',
             'me'       => '/auth/me',
+            'update'   => '/auth/me',
         ],
 
         'favorites' => [

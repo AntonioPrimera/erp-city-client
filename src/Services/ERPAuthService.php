@@ -81,6 +81,15 @@ class ERPAuthService
         session()->forget(self::SESSION_KEY);
     }
 
+    public function updateUser(array $user): array
+    {
+        $auth = $this->current();
+        $auth['user'] = $this->sanitizeUser($user);
+        session([self::SESSION_KEY => $auth]);
+
+        return $auth;
+    }
+
     protected function sanitizeUser(mixed $user): array
     {
         return is_array($user) ? $user : [];
