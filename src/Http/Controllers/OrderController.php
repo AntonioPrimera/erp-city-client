@@ -4,6 +4,7 @@ namespace ERPClient\Http\Controllers;
 
 use ERPClient\Api\ERP;
 use ERPClient\Enums\PaymentType;
+use ERPClient\Enums\TransportType;
 use ERPClient\Services\ERPAuthService;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -31,12 +32,14 @@ class OrderController extends Controller
             'items.*.quantity'   => ['required', 'integer', 'min:1'],
             'items.*.id'         => ['required', 'integer'], // the ERP product id
             'payment_type'       => ['nullable', Rule::enum(PaymentType::class)],
+            'transport_type'     => ['nullable', Rule::enum(TransportType::class)],
             'coupon_code'        => ['nullable', 'string', 'max:50'],
         ]);
 
         $items = $this->resolvePricedItems($validated['items']);
         $total = $this->calculateTotal($items);
         $paymentType = PaymentType::tryFrom($validated['payment_type'] ?? '') ?? null;
+        $transportType = TransportType::tryFrom($validated['transport_type'] ?? '') ?? null;
         $cardPaymentsEnabled = (bool) config('erp.payments.card_enabled', true);
         $couponCode = $validated['coupon_code'] ?? null;
 
@@ -79,6 +82,7 @@ class OrderController extends Controller
                 'email'        => $validated['email'],
                 'items'        => $items,
                 'payment_type' => $paymentType->value,
+                'transport_type' => $transportType?->value,
                 'coupon_code'  => $couponCode,
             ];
             session()->put('pending_orders', $pendingOrders);
@@ -103,6 +107,7 @@ class OrderController extends Controller
             $validated['email'],
             $items,
             $paymentType?->value,
+            $transportType?->value,
             $couponCode,
         );
 
@@ -149,6 +154,7 @@ class OrderController extends Controller
             $pendingOrder['email'],
             $pendingOrder['items'],
             $pendingOrder['payment_type'] ?? null,
+            $pendingOrder['transport_type'] ?? null,
             $pendingOrder['coupon_code'] ?? null,
         );
 

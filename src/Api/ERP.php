@@ -280,6 +280,7 @@ class ERP
         string $email,
         array $items, // quantity + price + currency + id of products
         ?string $paymentType = null,
+        ?string $transportType = null,
         ?string $couponCode = null,
     ): ?Response
     {
@@ -294,6 +295,9 @@ class ERP
 
         if ($paymentType) {
             $payload['payment_type'] = $paymentType;
+        }
+        if ($transportType) {
+            $payload['transport_type'] = $transportType;
         }
         if ($couponCode) {
             $payload['coupon_code'] = $couponCode;
